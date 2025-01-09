@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -16,7 +17,8 @@ public class Tallyer {
      *
      * @param args command-line arguments (not used in this implementation)
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) 
+    {
         Scanner input = new Scanner(System.in);
 
         List<String> ids = new ArrayList<>();
@@ -24,7 +26,8 @@ public class Tallyer {
         
         // Reading input for IDs and topics
         // Assumes file is well formed into pairs
-        while (input.hasNext()) {
+        while (input.hasNext()) 
+        {
             ids.add(input.next());
             topics.add(input.next());
         }
@@ -52,8 +55,22 @@ public class Tallyer {
     public static Map<String, Integer> tallyTopics(List<String> topics) {
         // WAVE 1
         // TODO: Implement this method
+        Map<String, Integer> newMap = new HashMap<>();
 
-        return null;
+        for(String word: topics)
+        {
+            if(!newMap.containsKey(word))
+            {
+                newMap.put(word, 1);
+            }
+            else
+            {
+                int count = newMap.get(word);
+                newMap.put(word, count+1);
+            }
+        }
+
+        return newMap;
     }
 
     /**
@@ -68,10 +85,30 @@ public class Tallyer {
      * @param topics a list of strings representing the topics to be tallied
      * @return a map containing topics as keys and their occurrence counts as values
      */
-    public static Map<String, Integer> tallyTopicsFiltered(List<String> ids, List<String> topics) {
+    public static Map<String, Integer> tallyTopicsFiltered(List<String> ids, List<String> topics) 
+    {
       // WAVE 2
       // TODO: Implement this method
+      Map<String, Integer> idCount = tallyTopics(ids);
+      Map<String, Integer> topicsCount = new HashMap<>();
+    
+        for(int i = 0; i<topics.size(); i++)
+        {
+        if(idCount.get(ids.get(i)).equals(2))
+        {
+            if(!topicsCount.containsKey(topics.get(i)))
+            {
+                topicsCount.put(topics.get(i), 1);
+            }
+            else
+            {
+                int count = topicsCount.get(topics.get(i));
+                topicsCount.put(topics.get(i), count+1);
+            }
 
-      return null;
-  }
+        }
+    }
+
+      return topicsCount;
+    }
 }
