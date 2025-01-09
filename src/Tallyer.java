@@ -69,7 +69,6 @@ public class Tallyer {
                 newMap.put(word, count+1);
             }
         }
-
         return newMap;
     }
 
@@ -105,10 +104,8 @@ public class Tallyer {
                 int count = topicsCount.get(topics.get(i));
                 topicsCount.put(topics.get(i), count+1);
             }
-
         }
     }
-
       return topicsCount;
     }
 }
