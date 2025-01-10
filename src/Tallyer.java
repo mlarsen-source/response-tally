@@ -1,9 +1,12 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 import java.util.TreeMap;
 
 /**
@@ -55,11 +58,17 @@ public class Tallyer {
         Map<String, Integer> topicCounts = tallyTopics(topics);
         System.out.println("Here are how many times each topic appears (unfiltered):");
         System.out.println(topicCounts);
+        System.out.println();
 
         // Wave 2
         Map<String, Integer> topicCountsFiltered = tallyTopicsFiltered(ids, topics);
         System.out.println("Here are how many times each topic appears (filtered):");
         System.out.println(topicCountsFiltered);
+        System.err.println();
+
+        Map<String,String> removed = removedFromTally(ids);
+        System.out.println("Here are the users who did not have their votes counted:"); 
+        System.out.println(removed);
 
         }
 
@@ -124,7 +133,29 @@ public class Tallyer {
                 topicsCount.put(topics.get(i), count+1);
             }
         }
+        
     }
       return topicsCount;
+    }
+
+
+    public static Map<String, String> removedFromTally(List<String> ids) 
+    {
+      // generates a list of users who did not enter exactly 2 topics and will not have their votes counted.
+      Map<String, Integer> idCount = tallyTopics(ids);
+      Map<String, String> removed = new TreeMap<>();
+      
+      for (Map.Entry<String, Integer> entry : idCount.entrySet())
+      {
+        String id = entry.getKey();
+        int count = entry.getValue();
+
+        if (count < 2) {
+            removed.put(id, "Not Enough Votes");
+        } else if (count > 2) {
+            removed.put(id, "Too Many Votes");
+        }
+    }
+    return removed;
     }
 }
