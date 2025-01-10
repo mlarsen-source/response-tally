@@ -28,10 +28,26 @@ public class Tallyer {
         
         // Reading input for IDs and topics
         // Assumes file is well formed into pairs
-        while (input.hasNext()) 
+        while (input.hasNextLine()) 
         {
-            ids.add(input.next());
-            topics.add(input.next());
+            // skip empty lines in file
+            String line = input.nextLine();
+            if(line.isEmpty())
+            {
+               continue;
+            }
+
+            // only add ID and topic to applicable lists if the line contains both items
+            String[] lineArray = line.split(" ");
+            if (lineArray.length == 2) 
+            {
+                ids.add(lineArray[0]);
+                topics.add(lineArray[1]);
+
+            }
+
+            //ids.add(input.next());
+            //topics.add(input.next());
         }
         input.close();
         
@@ -111,12 +127,4 @@ public class Tallyer {
     }
       return topicsCount;
     }
-
-    
-
-
-
-
-
-
 }
