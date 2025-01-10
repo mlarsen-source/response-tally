@@ -1,19 +1,15 @@
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.Set;
 import java.util.TreeMap;
 
 /**
  * The Tallyer class provides functionality for reading ID and topic pairs from user input,
  * and tallying the number of occurrences of each topic.
  */
-public class Tallyer {
+public class Tallyer 
+{
 
     /**
      * The main method serves as the entry point for the program. It reads pairs of IDs and topics
@@ -30,7 +26,7 @@ public class Tallyer {
         List<String> topics = new ArrayList<>();
         
         // Reading input for IDs and topics
-        // Assumes file is well formed into pairs
+        // modified to account for malformed files
         while (input.hasNextLine()) 
         {
             // skip empty lines in file
@@ -46,11 +42,8 @@ public class Tallyer {
             {
                 ids.add(lineArray[0]);
                 topics.add(lineArray[1]);
-
             }
 
-            //ids.add(input.next());
-            //topics.add(input.next());
         }
         input.close();
         
@@ -64,8 +57,9 @@ public class Tallyer {
         Map<String, Integer> topicCountsFiltered = tallyTopicsFiltered(ids, topics);
         System.out.println("Here are how many times each topic appears (filtered):");
         System.out.println(topicCountsFiltered);
-        System.err.println();
+        System.out.println();
 
+        // Extra Challenge #3
         Map<String,String> removed = removedFromTally(ids);
         System.out.println("Here are the users who did not have their votes counted:"); 
         System.out.println(removed);
@@ -133,15 +127,20 @@ public class Tallyer {
                 topicsCount.put(topics.get(i), count+1);
             }
         }
-        
     }
       return topicsCount;
     }
 
-
+     
+    /**
+     * generates a treemap of users who did not enter exactly 2 topics and did not have their votes counted.
+     * @param ids a list of strings representing IDs associated with each topic
+     * @return a map containing user ID's as keys and the reason their votes were not counted as values
+     */
     public static Map<String, String> removedFromTally(List<String> ids) 
     {
-      // generates a list of users who did not enter exactly 2 topics and will not have their votes counted.
+     
+
       Map<String, Integer> idCount = tallyTopics(ids);
       Map<String, String> removed = new TreeMap<>();
       
