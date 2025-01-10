@@ -1,8 +1,10 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.TreeMap;
 
 /**
  * The Tallyer class provides functionality for reading ID and topic pairs from user input,
@@ -42,7 +44,8 @@ public class Tallyer {
         Map<String, Integer> topicCountsFiltered = tallyTopicsFiltered(ids, topics);
         System.out.println("Here are how many times each topic appears (filtered):");
         System.out.println(topicCountsFiltered);
-    }
+
+        }
 
     /**
      * Tally the occurrences of each topic from the provided list of topics.
@@ -55,7 +58,7 @@ public class Tallyer {
     public static Map<String, Integer> tallyTopics(List<String> topics) {
         // WAVE 1
         // TODO: Implement this method
-        Map<String, Integer> newMap = new HashMap<>();
+        Map<String, Integer> newMap = new TreeMap<>();
 
         for(String word: topics)
         {
@@ -89,7 +92,7 @@ public class Tallyer {
       // WAVE 2
       // TODO: Implement this method
       Map<String, Integer> idCount = tallyTopics(ids);
-      Map<String, Integer> topicsCount = new HashMap<>();
+      Map<String, Integer> topicsCount = new TreeMap<>();
     
         for(int i = 0; i<topics.size(); i++)
         {
@@ -108,4 +111,12 @@ public class Tallyer {
     }
       return topicsCount;
     }
+
+    
+
+
+
+
+
+
 }
